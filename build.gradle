@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = 'sponge'
+            url = 'http://repo.spongepowered.org/maven'
+        }
+        jcenter()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+
+version = "v0.1-beta"
+group = "Xcom6000"
+archivesBaseName = "Carpet Client"
+
+apply plugin: 'net.minecraftforge.gradle.liteloader'
+apply plugin: 'org.spongepowered.mixin'
+
+minecraft {
+    version = "1.12.2"
+    mappings = "stable_39"
+    runDir = "run"
+    makeObfSourceJar = false
+    replace '@VERSION@', project.version
+}
+
+libsDirName = "../libs"
+
+litemod {
+    json {
+        name = "Lava Sponge"
+        displayName = "Lava Sponge"
+        author = "Xcom6000"
+        mcversion = "1.12.2"
+        description = "Lava Sponge for removing lava fast"
+        mixinConfigs += "mixins.lavasponge.json"
+        version = project.version
+    }
+}
+
+jar {
+    from litemod.outputs
+    baseName = archivesBaseName
+    classifier = null
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.lavasponge.refmap.json"
+    }
+}
+
+mixin {
+    // liteloader does not do runtime deobfuscation, so in production we use "notch names", mixin needs to know this
+    defaultObfuscationEnv notch
+}
+
+/*dependencies {
+    compile 'net.minecraftforge:forgeflower:1.0.342-SNAPSHOT'
+}
+
+runClient {
+    systemProperty 'mixin.debug', 'true'
+}*/
+
+repositories {
+    maven { url = "http://repo.spongepowered.org/maven" }
+}
+dependencies {
+    compile 'org.jetbrains.java.decompiler:fernflower:sponge-SNAPSHOT'
+}
+runClient {
+    jvmArgs "-Dmixin.debug=true"
+//    jvmArgs "-Dmixin.debug.export=true"
+}

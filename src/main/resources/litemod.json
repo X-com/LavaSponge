@@ -1,0 +1,7 @@
+{
+	"name": "lavasponge",
+	"mcversion": "1.12.2",
+	"mixinConfigs": [
+		"mixins.lavasponge.json",
+	]
+}
