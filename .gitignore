@@ -75,6 +75,9 @@ nb-configuration.xml
 *.iws
 *.launch
 *.number
+gradlew
+gradlew.bat
+/gradle
 
 # Minecraft #
 #############
