@@ -10,7 +10,7 @@ Hotkey class to implement hotkeys for lava sponge. Changeable in the hotkey menu
  */
 public class Hotkeys {
 
-    public static KeyBinding toggleLavaSponge = new KeyBinding("Lava Sponge", Keyboard.KEY_E, "Lava Sponge");
+    public static KeyBinding toggleLavaSponge = new KeyBinding("Lava Sponge", Keyboard.KEY_G, "Lava Sponge");
 
     public static void init() {
         LiteLoader.getInput().registerKeyBinding(toggleLavaSponge);
